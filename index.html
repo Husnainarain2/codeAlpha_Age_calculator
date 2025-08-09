@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="index.css">
+    <title>Age Calculator</title>
+</head>
+<body>
+    <div class=".container">
+        <h1 id="heading">Age Calculator</h1>
+        <form id="ageForm">
+            <label class="bod" for="birthdate">Enter your birthdate:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+            <button class="btn-result" onclick="return ageCalculator();" type="submit">Calculate Age</button>
+            <p class="result"></p>
+
+    </div>
+
+
+    <script>
+        function ageCalculator(){
+        let dobinput = document.getElementById("birthdate").value;
+        let result = document.querySelector(".result");
+        if(!dobinput) {
+            result.textContent = "Please enter a valid date.";
+            result.style.color = "red";
+            return false;
+        }
+        let dob = new Date(dobinput);
+        let today = new Date();
+        let years = today.getFullYear() - dob.getFullYear();
+        let months = today.getMonth() - dob.getMonth();
+        let days = today.getDate() - dob.getDate();
+        if (days < 0) {
+            months--;
+            let prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+            days += prevMonth.getDate();
+        }
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+        if (years < 0) {
+            result.textContent = "Please enter a valid date in the past.";
+            result.style.color = "red";
+            return false;
+        }
+        result.innerHTML = `Your age is ${years} years, ${months} months, and ${days} days.`;
+        result.style.color = "black";
+        return false;
+
+    }
+
+    
+
+    </script>
+</body>
+</html>
